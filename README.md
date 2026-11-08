@@ -166,6 +166,3 @@ The `ML_Assignment2.ipynb` notebook should be run **top to bottom from the proje
 - **Serialization:** Only trusted model files stored in this repository are loaded. Untrusted uploaded `.pkl` / `.joblib` files are never accepted.
 - **Academic integrity:** The original assignment explicitly states that AI assistance is **for learning**, not a direct copy-paste submission. Review and independently execute the project, adjust and explain your own modeling and UI decisions, write observations in your own words, and build a genuine commit history. Only your **own BITS Virtual Lab screenshot and real live links** may appear in the final PDF.
 
-## h. Final submission order
-
-The official **single PDF** must contain, in this sequence: **(1) GitHub repository URL; (2) deployed Streamlit app URL; (3) your authentic BITS Virtual Lab execution screenshot; (4) the complete README content above**. `make_submission_pdf.py` checks that links and evidence are supplied and creates a clickable PDF in this order. **Do not submit the preview draft**; the faculty explicitly rejects drafts.
