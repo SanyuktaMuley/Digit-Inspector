@@ -1,11 +1,19 @@
-# INK / Digit Inspector — ML Assignment 2
+# INK / Digit Inspector
+
+**Machine Learning Assignment 2 | BITS Pilani WILP — M.Tech AI & ML**
 
 *A reproducible ten-class classification experiment with an interactive, inference-only Streamlit model evaluator.*
 
-> **Course:** Machine Learning, M.Tech (Artificial Intelligence & Machine Learning), BITS Pilani WILP.  
-> **Student:** SANYUKTA MULEY · **BITS ID:**   
-> **Repository:** https://github.com/SanyuktaMuley/Digit-Inspector 
-> **Deployed application:** https://ml-digit-inspector.streamlit.app/
+**Student:** Sanyukta Muley  
+**BITS ID:** 2026AJ05164  
+**GitHub:** https://github.com/SanyuktaMuley/Digit-Inspector  
+**Live app:** https://ml-digit-inspector.streamlit.app/
+
+> **At a glance:** 1,797 digit images · 64 pixel features · 10 classes · 5 classifiers · 6 evaluation metrics · 360 held-out test samples.
+
+**Workflow:** Dataset → stratified split → training-only preprocessing → fit five pipelines → evaluate held-out data → save models → upload labelled CSV in Streamlit → predict without retraining.
+
+*The published URLs above must be checked in a browser before submission.*
 
 ## a. Problem statement
 
@@ -13,7 +21,7 @@ The task is to predict which of the **ten handwritten digits (0–9)** is repres
 
 The goal is not to reach an artificially perfect accuracy; it is to compare consistent predictions, explain model trade-offs, and demonstrate the real deployment workflow from a notebook to a web application.
 
-## b. Dataset description [1 mark]
+## b. Dataset description
 
 | Attribute | Description |
 |---|---|
@@ -31,14 +39,14 @@ The original UCI collection contains **5,620** rows. The specific scikit-learn *
 
 **Attribution:** Alpaydin, E. and Kaynak, C. (1998), *Optical Recognition of Handwritten Digits*, UCI Machine Learning Repository, DOI: https://doi.org/10.24432/C50P49. Original pixel extraction traces to NIST image preprocessing. The scikit-learn distribution identifies its digit data as a copy of the test set from the UCI original.
 
-## c. GitHub repository link [1 mark]
+## c. GitHub repository and deployment
 
-**Repository:** [REPLACE_WITH_YOUR_GITHUB_REPOSITORY_URL]  
-**Live Streamlit Community Cloud application:** [REPLACE_WITH_YOUR_STREAMLIT_APP_URL]
+**Repository:** https://github.com/SanyuktaMuley/Digit-Inspector  
+**Live Streamlit application:** https://ml-digit-inspector.streamlit.app/
 
-Both placeholders must be updated with **real, clickable, tested links** after the manual GitHub upload and deployment. The source code, executed notebook, dependency lock, complete `.joblib` pipelines, public dataset, labelled `test_data.csv`, experiment metadata and original observations are committed in the repository.
+The repository is intended to contain the source code, executed notebook, pinned dependencies, saved `.joblib` pipelines, public dataset, labelled `test_data.csv`, experiment metadata and analysis. Confirm these are present on GitHub and that the live app loads before submission.
 
-## d. Models used and evaluation [5 marks]
+## d. Models used and evaluation
 
 ### Common preprocessing and reproducibility
 
@@ -83,7 +91,7 @@ No tuning is performed using the held-out labels. Exactly **five** classifiers a
 | Gaussian Naive Bayes | 62 | 298 |
 | Support Vector Machine | 4 | 356 |
 
-### Observations for all five models [3 marks]
+### Model-wise observations and winner
 
 | ML Model Name | Observation about actual performance on this dataset |
 |---|---|
@@ -96,7 +104,7 @@ No tuning is performed using the held-out labels. Exactly **five** classifiers a
 
 **Caveats:** This is **one** pre-specified holdout split from a curated UCI-derived subset, not a writer-independent prospective test. Different splits, handwriting, hyperparameters, or costs of confusing particular digits can change the order. No clinical or production claim is made.
 
-## e. Streamlit application [4 marks]
+## e. Streamlit application
 
 The custom **INK / Digit Inspector** interface supports every faculty-mandated feature:
 
@@ -109,10 +117,10 @@ Extra UI features are a separate **comparison tab** with metric bar charts and a
 
 **Test CSV contract:** `test_data.csv` includes all **64 pixel columns** and `Digit`, with 360 samples, so evaluation is possible. Predictions without true labels could not produce the mandatory metrics, which is why a target is required.
 
-## f. Project directory and execution
+## f. Project structure and reproduction
 
 ```text
-ML_Assignment2_Final_GitHub_Ready/
+Digit-Inspector/
 ├── app.py                       # Custom Streamlit evaluation interface
 ├── ML_Assignment2.ipynb         # Executed, stage-by-stage primary experiment
 ├── train.py                     # Deterministic model/CSV export from scratch
@@ -142,23 +150,29 @@ ML_Assignment2_Final_GitHub_Ready/
 └── test_data.csv                 # 360 test rows + 10-class target
 ```
 
-### Reproduce the results
+### Run locally
 
-From the project root with **Python 3.13**:
+From the project root, use the Python version compatible with the pinned dependencies and saved model artifacts. **Check `results/experiment.json` and `requirements.txt` first; the final training and deployment environments must agree.**
 
 ```bash
 python -m pip install -r requirements.txt
 python train.py
 python verify_project.py
 python -m unittest discover -s tests -v
-streamlit run app.py
+python -m streamlit run app.py
 ```
+
+**Demo:** Open the app, upload `test_data.csv`, select each saved model, and inspect the six metrics, confusion matrix and classification report. The upload must contain all 64 pixel columns and the `Digit` label.
 
 The `ML_Assignment2.ipynb` notebook should be run **top to bottom from the project root** after installing `requirements-notebook.txt` if Jupyter is unavailable. It recreates the five pipelines and verifies reload consistency with no hidden state. The optional `train.py` script can recreate the same results from the committed dataset without notebook tooling. **Do not retrain in Streamlit; do not upload training rows to the demo.**
 
-**Deployment:** Sign in to Streamlit Community Cloud using GitHub, choose your repository, **`main`**, **`app.py`**, and **Python 3.13** (to match the saved serialization environment). After deploying, upload `test_data.csv` and confirm all five models match `results/model_metrics.csv`. If deployment fails due to package compatibility, compare the Cloud build log with pinned versions—do not randomly regenerate models.
+**Deployment:** In Streamlit Community Cloud select the GitHub repository, `main` branch and `app.py` entry point. Choose a supported Python version compatible with `requirements.txt` and the serialized model environment recorded in `results/experiment.json`. Upload `test_data.csv` and verify that all five models reproduce `results/model_metrics.csv`. If the build fails, inspect the Cloud logs and dependency versions rather than changing packages arbitrarily.
 
-## g. Limitations, provenance and integrity
+## g. Conclusion and limitations
+
+**Conclusion:** On this 360-image held-out split, Logistic Regression achieved the highest accuracy (0.9917), macro F1 (0.9917) and MCC (0.9908), making only three classification errors. SVM achieved the highest macro one-vs-rest AUC (0.9999), demonstrating that the best classifier depends on the evaluation criterion. The experiment illustrates how a consistent preprocessing and testing protocol supports a defensible comparison.
+
+### Provenance, reproducibility and integrity
 
 - **UCI citation and licensing:** Alpaydin & Kaynak (1998), DOI https://doi.org/10.24432/C50P49; UCI dataset is published under CC BY 4.0. This project explicitly identifies the 1,797-row scikit-learn subset, not the full 5,620-row UCI release.
 - **Reproducibility:** Both the notebook and script use a fixed stratified split, the exact same pipeline constructors and the exact same metric implementation. JSON records the raw CSV's SHA-256 fingerprint and the fitted environment versions.
@@ -166,3 +180,8 @@ The `ML_Assignment2.ipynb` notebook should be run **top to bottom from the proje
 - **Serialization:** Only trusted model files stored in this repository are loaded. Untrusted uploaded `.pkl` / `.joblib` files are never accepted.
 - **Academic integrity:** The original assignment explicitly states that AI assistance is **for learning**, not a direct copy-paste submission. Review and independently execute the project, adjust and explain your own modeling and UI decisions, write observations in your own words, and build a genuine commit history. Only your **own BITS Virtual Lab screenshot and real live links** may appear in the final PDF.
 
+
+
+## h. Submission evidence
+
+The final submission PDF should place (1) the GitHub URL, (2) the working Streamlit URL, (3) an authentic BITS Prayogshala execution screenshot, and then (4) the complete README content, in the order required by the assignment. Screenshots are supporting evidence; the source repository and live app remain the primary reproducibility artifacts.
