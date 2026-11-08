@@ -1,0 +1,3 @@
+# Only needed on your personal computer to compile the final PDF. Not used in Streamlit deployment.
+weasyprint>=66,<70
+mistune>=3,<4
