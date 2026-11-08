@@ -3,9 +3,9 @@
 *A reproducible ten-class classification experiment with an interactive, inference-only Streamlit model evaluator.*
 
 > **Course:** Machine Learning, M.Tech (Artificial Intelligence & Machine Learning), BITS Pilani WILP.  
-> **Student:** [YOUR NAME] · **BITS ID:** [YOUR BITS ID]  
-> **Repository:** [REPLACE_WITH_YOUR_GITHUB_REPOSITORY_URL]  
-> **Deployed application:** [REPLACE_WITH_YOUR_STREAMLIT_APP_URL]
+> **Student:** SANYUKTA MULEY · **BITS ID:**   
+> **Repository:** https://github.com/SanyuktaMuley/Digit-Inspector 
+> **Deployed application:** https://ml-digit-inspector.streamlit.app/
 
 ## a. Problem statement
 
